@@ -1,0 +1,8 @@
+pandas>=1.5
+numpy>=1.23
+scikit-learn>=1.2
+xgboost>=1.7
+matplotlib>=3.5
+seaborn>=0.12
+pyarrow>=9.0       # For Parquet support
+kaggle>=1.5.16     # For dataset download via CLI
