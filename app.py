@@ -1,15 +1,14 @@
 import streamlit as st
 import numpy as np
 import joblib
-import plotly.graph_objects as go
 
 # Load trained model
 model = joblib.load(r"models/random_forest_asteroid_model.joblib")
 
 # --- Page Config ---
-st.set_page_config(page_title="NASA NEO Hazard Prediction", layout="centered")
+st.set_page_config(page_title="NASA NEO Prediction", layout="centered")
 
-# --- Custom CSS for clean minimal look ---
+# --- Custom CSS for clean white look ---
 st.markdown(
     """
     <style>
@@ -17,7 +16,6 @@ st.markdown(
         .block-container {padding-top: 2rem; max-width: 850px; margin: auto;}
         body {background-color: white; color: #111;}
         h1, h2, h3 {font-family: 'Helvetica Neue', sans-serif; font-weight: 600;}
-        .stMetric {text-align: center;}
     </style>
     """,
     unsafe_allow_html=True
@@ -63,27 +61,9 @@ if st.button("Predict"):
     st.subheader("Prediction Results")
     st.metric("Chance of Earth Impact", f"{impact_percent}%")
 
-    # --- Radial Gauge ---
-    fig = go.Figure(go.Indicator(
-        mode="gauge+number",
-        value=impact_percent,
-        number={'suffix': "%"},
-        gauge={
-            'axis': {'range': [0, 100]},
-            'bar': {'color': "red" if impact_percent > 50 else "green"},
-            'steps': [
-                {'range': [0, 25], 'color': "#d4f7d4"},
-                {'range': [25, 50], 'color': "#f9f5b1"},
-                {'range': [50, 75], 'color': "#fdd9a5"},
-                {'range': [75, 100], 'color': "#f5b7b1"},
-            ],
-        }
-    ))
+    # Visual risk bar
+    st.progress(int(impact_percent))
 
-    fig.update_layout(height=300, margin=dict(t=20, b=20, l=20, r=20))
-    st.plotly_chart(fig, use_container_width=True)
-
-    # --- Risk Message ---
     if prediction == 1:
         st.error("Hazardous Asteroid Detected")
     else:
