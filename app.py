@@ -35,9 +35,14 @@ features = np.array([[abs_mag, diameter_min, diameter_max,
 # Predict
 if st.button("Predict 🚀"):
     prediction = model.predict(features)[0]
-    proba = model.predict_proba(features)[0][1]
+    proba = model.predict_proba(features)[0][1]  # Probability asteroid is hazardous
+
+    impact_percent = round(proba * 100, 2)
+
+    st.markdown(f"### 🌍 Chance of Earth Impact: **{impact_percent}%**")
 
     if prediction == 1:
-        st.error(f"☢️ Hazardous Asteroid!")
+        st.error("☢️ Hazardous Asteroid!")
     else:
-        st.success(f"✅ Safe Asteroid")
+        st.success("✅ Safe Asteroid")
+
