@@ -8,6 +8,19 @@ model = joblib.load(r"models/random_forest_asteroid_model.joblib")
 # --- Page Config ---
 st.set_page_config(page_title="NASA NEO Prediction", layout="centered")
 
+# --- Custom CSS for minimal white UI ---
+st.markdown(
+    """
+    <style>
+        /* Remove Streamlit default padding & header */
+        #MainMenu, header, footer {visibility: hidden;}
+        .block-container {padding-top: 1rem; padding-bottom: 1rem; max-width: 800px; margin: auto;}
+        body {background-color: white;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # --- Header ---
 st.title("NASA NEO Hazard Prediction")
 st.caption("Enter asteroid details to estimate the chance of Earth impact.")
