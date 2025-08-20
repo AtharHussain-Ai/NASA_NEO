@@ -38,6 +38,6 @@ if st.button("Predict 🚀"):
     proba = model.predict_proba(features)[0][1]
 
     if prediction == 1:
-        st.error(f"☢️ Hazardous Asteroid! (Probability: {proba:.2f})")
+        st.error(f"☢️ Hazardous Asteroid!")
     else:
-        st.success(f"✅ Safe Asteroid (Probability: {proba:.2f})")
+        st.success(f"✅ Safe Asteroid")
