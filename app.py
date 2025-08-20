@@ -10,14 +10,7 @@ st.set_page_config(page_title="NASA NEO Prediction", layout="centered")
 
 # --- Header ---
 st.title("NASA NEO Hazard Prediction")
-st.markdown(
-    """
-    Enter asteroid details to predict if it's Hazardous or Safe.  
-    The model estimates the chance of Earth impact in real time.
-    """
-)
-
-st.divider()
+st.caption("Enter asteroid details to estimate the chance of Earth impact.")
 
 # --- Input Section ---
 st.subheader("Asteroid Parameters")
@@ -40,8 +33,6 @@ with col2:
     log_distance = st.number_input("Log Miss Distance", value=5.7, step=0.1)
     threat_score = st.number_input("Threat Score", value=50.0, step=1.0)
 
-st.divider()
-
 # --- Feature vector (EXACT order used during training) ---
 features = np.array([[abs_mag, diameter_min, diameter_max,
                       orbiting_encoded, velocity, miss_distance,
@@ -49,7 +40,7 @@ features = np.array([[abs_mag, diameter_min, diameter_max,
                       log_distance, threat_score]])
 
 # --- Prediction Button ---
-if st.button("Predict Hazard"):
+if st.button("Predict"):
     prediction = model.predict(features)[0]
     proba = model.predict_proba(features)[0][1]  # Probability hazardous
 
